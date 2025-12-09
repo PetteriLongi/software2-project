@@ -1,0 +1,90 @@
+/* 
+ * Main stylesheet for Rites of Transit
+ * Lovecraftian horror theme with dark, atmospheric styling
+ */
+
+:root {
+    --color-bg-primary: #0a0a0a;
+    --color-bg-secondary: #1a1a1a;
+    --color-text-primary: #e0e0e0;
+    --color-text-secondary: #a0a0a0;
+    --color-accent-purple: #8b5cf6;
+    --color-accent-cyan: #06b6d4;
+    --color-accent-red: #ef4444;
+    --color-accent-green: #10b981;
+    --color-accent-yellow: #fbbf24;
+    --color-hp: #ef4444;
+    --color-sanity: #8b5cf6;
+    --color-xp: #a855f7;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+#app {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#loading {
+    text-align: center;
+    padding: 100px 20px;
+}
+
+#loading h1 {
+    color: var(--color-accent-purple);
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+#loading p {
+    color: var(--color-text-secondary);
+    font-size: 1.2em;
+}
+
+/* Utility classes */
+.text-center { text-align: center; }
+.text-red { color: var(--color-accent-red); }
+.text-green { color: var(--color-accent-green); }
+.text-yellow { color: var(--color-accent-yellow); }
+.text-cyan { color: var(--color-accent-cyan); }
+.text-purple { color: var(--color-accent-purple); }
+.text-dim { color: var(--color-text-secondary); }
+
+/* Button styles */
+.btn {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+    border: 2px solid var(--color-accent-purple);
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    font-size: 1em;
+    transition: all 0.3s;
+}
+
+.btn:hover {
+    background-color: var(--color-accent-purple);
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* TODO: Add more specific component styles as needed */

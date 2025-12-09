@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rites of Transit - Story</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/story.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}">
+</head>
+<body>
+    <div class="story-screen">
+        <!-- Small typewriter on the table in background -->
+        <div class="background-typewriter" id="background-typewriter">
+            <img src="{{ url_for('static', filename='images/props/typewritersmall.png') }}" 
+                 alt="Typewriter on table" 
+                 class="background-typewriter-image">
+            <div class="typewriter-prompt">Click to begin typing...</div>
+        </div>
+
+        <!-- Paper that comes out of the typewriter -->
+        <div class="paper-container" style="display: none;">
+            <div class="paper">
+                <div class="paper-content">
+                    <div id="story-text" class="story-text"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Typewriter at bottom -->
+        <div class="typewriter-container">
+            <img src="{{ url_for('static', filename='images/props/typewriter.png') }}" 
+                 alt="Typewriter" 
+                 class="typewriter-image">
+        </div>
+
+        <!-- Choice buttons (appear when text is complete) -->
+        <div id="story-choices" class="story-choices"></div>
+
+        <!-- Continue indicator -->
+        <div id="continue-indicator" class="continue-indicator" style="display: none;">
+            <span class="blinking-cursor">▼</span>
+            <p>Press Space or Click to Continue</p>
+        </div>
+    </div>
+
+    <!-- Typewriter sound effect (optional) -->
+    <audio id="typewriter-sound" preload="auto">
+        <!-- Add sound file if available -->
+    </audio>
+
+    <script src="{{ url_for('static', filename='js/api.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/audio.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/settings.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/ui.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/game.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/story.js') }}" defer></script>
+</body>
+</html>

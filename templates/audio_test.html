@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio System Test - GameProjectSoftware2</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #1a1a1a;
+            color: #00ff00;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+        }
+        h2 {
+            color: #00cccc;
+            margin-top: 30px;
+        }
+        .controls {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .button-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+        button {
+            background: #003300;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: #00ff00;
+            color: #000;
+            box-shadow: 0 0 15px #00ff00;
+        }
+        button:active {
+            transform: scale(0.95);
+        }
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 10px 0;
+        }
+        input[type="range"] {
+            flex: 1;
+            max-width: 300px;
+        }
+        .status {
+            background: #1a3a1a;
+            border: 1px solid #00ff00;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .status-item {
+            margin: 5px 0;
+        }
+        .category-section {
+            background: #2a2a2a;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #00cccc;
+        }
+        .log {
+            background: #000;
+            border: 1px solid #00ff00;
+            padding: 15px;
+            height: 200px;
+            overflow-y: auto;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+        .log-entry {
+            margin: 3px 0;
+            padding: 3px;
+        }
+        .log-info { color: #00cccc; }
+        .log-success { color: #00ff00; }
+        .log-error { color: #ff0000; }
+    </style>
+</head>
+<body>
+    <h1>🎵 Audio System Test Console</h1>
+    
+    <div class="status">
+        <div class="status-item">Status: <span id="status">Initializing...</span></div>
+        <div class="status-item">Current Track: <span id="current-track">None</span></div>
+        <div class="status-item">Tracks Loaded: <span id="track-count">0</span></div>
+    </div>
+
+    <div class="controls">
+        <h2>🎛️ Volume Controls</h2>
+        <div class="volume-control">
+            <label>Master Volume:</label>
+            <input type="range" id="master-volume" min="0" max="100" value="100">
+            <span id="master-value">100%</span>
+        </div>
+        <div class="volume-control">
+            <label>Music Volume:</label>
+            <input type="range" id="music-volume" min="0" max="100" value="12">
+            <span id="music-value">12%</span>
+        </div>
+        <div class="volume-control">
+            <label>SFX Volume:</label>
+            <input type="range" id="sfx-volume" min="0" max="100" value="15">
+            <span id="sfx-value">15%</span>
+        </div>
+        <div class="button-group">
+            <button onclick="toggleMute()">Toggle Mute</button>
+            <button onclick="AudioManager.stopAll()">Stop All</button>
+        </div>
+    </div>
+
+    <div class="category-section">
+        <h2>🎸 Combat Music</h2>
+        <div class="button-group">
+            <button onclick="playTrack('music_anxiety')">Anxiety</button>
+            <button onclick="playTrack('music_behind_you')">Behind You</button>
+            <button onclick="playTrack('music_final_battle')">Final Battle</button>
+            <button onclick="playTrack('music_invocation')">Invocation</button>
+            <button onclick="playTrack('music_fragments_work')">Fragments Work</button>
+            <button onclick="playTrack('music_your_fear')">Your Fear</button>
+        </div>
+    </div>
+
+    <div class="category-section">
+        <h2>🌫️ Ambient Soundscapes</h2>
+        <div class="button-group">
+            <button onclick="playTrack('ambient_airport_dread')">Airport Dread</button>
+            <button onclick="playTrack('ambient_chaos_terminal')">Chaos Terminal</button>
+            <button onclick="playTrack('ambient_eclipse')">Eclipse</button>
+            <button onclick="playTrack('ambient_piano_suspense')">Piano Suspense</button>
+            <button onclick="playTrack('ambient_tension_rise')">Tension Rise</button>
+            <button onclick="playTrack('ambient_whispers')">Whispers</button>
+            <button onclick="playTrack('ambient_epilogue')">Epilogue</button>
+        </div>
+    </div>
+
+    <div class="category-section">
+        <h2>🔫 Weapon Sound Effects</h2>
+        <div class="button-group">
+            <button onclick="playTrack('sfx_knife_slash')">Knife Slash</button>
+            <button onclick="playTrack('sfx_sword_slash')">Sword Slash</button>
+            <button onclick="playTrack('sfx_revolver_shot')">Revolver Shot</button>
+            <button onclick="playTrack('sfx_rifle_shot')">Rifle Shot</button>
+            <button onclick="playTrack('sfx_submachine_shot')">SMG Shot</button>
+            <button onclick="playTrack('sfx_reload')">Reload</button>
+            <button onclick="playTrack('sfx_revolver_reload')">Revolver Reload</button>
+        </div>
+    </div>
+
+    <div class="category-section">
+        <h2>✨ Manifestation Effects</h2>
+        <div class="button-group">
+            <button onclick="playTrack('sfx_manifestation_fear')">Fear</button>
+            <button onclick="playTrack('sfx_manifestation_hope')">Hope</button>
+            <button onclick="playTrack('sfx_manifestation_rage')">Rage</button>
+            <button onclick="playTrack('sfx_manifestation_resentment')">Resentment</button>
+        </div>
+    </div>
+
+    <div class="category-section">
+        <h2>🎮 Game Events</h2>
+        <div class="button-group">
+            <button onclick="playEvent('combat_start')">Combat Start</button>
+            <button onclick="playEvent('combat_start_boss')">Boss Fight</button>
+            <button onclick="playEvent('combat_end')">Combat End</button>
+            <button onclick="playEvent('level_up')">Level Up</button>
+            <button onclick="playEvent('consume_food')">Eat Food</button>
+            <button onclick="playEvent('consume_potion')">Drink Potion</button>
+        </div>
+    </div>
+
+    <div class="log" id="log">
+        <div class="log-entry log-info">Audio System Test Console initialized...</div>
+    </div>
+
+    <script src="/static/js/audio.js"></script>
+    <script>
+        // Log helper
+        function addLog(message, type = 'info') {
+            const log = document.getElementById('log');
+            const entry = document.createElement('div');
+            entry.className = `log-entry log-${type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+        }
+
+        // Initialize audio system
+        async function initAudio() {
+            try {
+                await AudioManager.init();
+                document.getElementById('status').textContent = 'Ready ✓';
+                document.getElementById('status').style.color = '#00ff00';
+                document.getElementById('track-count').textContent = Object.keys(AudioManager.catalog).length;
+                addLog('Audio system initialized successfully', 'success');
+                addLog(`Loaded ${Object.keys(AudioManager.catalog).length} audio tracks`, 'info');
+            } catch (error) {
+                document.getElementById('status').textContent = 'Error ✗';
+                document.getElementById('status').style.color = '#ff0000';
+                addLog('Failed to initialize audio system: ' + error, 'error');
+            }
+        }
+
+        // Play track by ID
+        function playTrack(trackId) {
+            try {
+                AudioManager.play(trackId);
+                const track = AudioManager.catalog[trackId];
+                if (track) {
+                    document.getElementById('current-track').textContent = trackId;
+                    addLog(`Playing: ${trackId} (${track.category})`, 'success');
+                } else {
+                    addLog(`Track not found: ${trackId}`, 'error');
+                }
+            } catch (error) {
+                addLog(`Error playing ${trackId}: ${error}`, 'error');
+            }
+        }
+
+        // Play event
+        async function playEvent(eventName) {
+            try {
+                const success = await AudioManager.playEvent(eventName);
+                if (success) {
+                    addLog(`Event triggered: ${eventName}`, 'success');
+                } else {
+                    addLog(`No audio for event: ${eventName}`, 'error');
+                }
+            } catch (error) {
+                addLog(`Error playing event ${eventName}: ${error}`, 'error');
+            }
+        }
+
+        // Toggle mute
+        function toggleMute() {
+            const muted = AudioManager.toggleMute();
+            addLog(muted ? 'Audio muted' : 'Audio unmuted', 'info');
+        }
+
+        // Volume controls
+        document.getElementById('master-volume').addEventListener('input', (e) => {
+            const value = e.target.value / 100;
+            AudioManager.setMasterVolume(value);
+            document.getElementById('master-value').textContent = e.target.value + '%';
+        });
+
+        document.getElementById('music-volume').addEventListener('input', (e) => {
+            const value = e.target.value / 100;
+            AudioManager.setMusicVolume(value);
+            document.getElementById('music-value').textContent = e.target.value + '%';
+        });
+
+        document.getElementById('sfx-volume').addEventListener('input', (e) => {
+            const value = e.target.value / 100;
+            AudioManager.setSFXVolume(value);
+            document.getElementById('sfx-value').textContent = e.target.value + '%';
+        });
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', () => {
+            addLog('Initializing audio system...', 'info');
+            initAudio();
+        });
+    </script>
+</body>
+</html>

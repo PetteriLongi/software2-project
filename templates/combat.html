@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combat - Where Shadows Bled</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/combat.css">
+    <link rel="stylesheet" href="/static/css/settings.css">
+</head>
+<body>
+    <div class="combat-screen">
+        <!-- Upper Combat Area: Sprites and Visual -->
+        <div class="combat-area">
+            <!-- Player Section (Left, Foreground) -->
+            <div class="player-section">
+                <div class="player-sprite" id="player-sprite">
+                    <!-- Player sprite image loaded dynamically based on chapter -->
+                </div>
+            </div>
+
+            <!-- Manifestation Section (Overlaid next to Player) -->
+            <div class="manifestation-section">
+                <div class="manifestation-sprite" id="manifestation-sprite">
+                    <!-- Manifestation sprite appears when used -->
+                </div>
+            </div>
+
+            <!-- Enemies Section (Right, Background) -->
+            <div class="enemies-section" id="enemies-container">
+                <!-- Enemy sprites injected dynamically -->
+            </div>
+
+            <!-- Combat Log (overlays bottom of combat area) -->
+            <div class="combat-log" id="combat-log">
+                <div class="combat-log-content" id="combat-log-content">
+                    Combat begins...
+                </div>
+            </div>
+        </div>
+
+        <!-- Lower UI Area: Controls and Stats -->
+        <div class="ui-area">
+            <!-- Left: Action Buttons & Player Stats -->
+            <div class="left-panel">
+                <!-- Player Stats -->
+                <div class="player-stats">
+                    <div class="stat-row">
+                        <span class="stat-label">Health:</span>
+                        <div class="stat-bar">
+                            <div class="stat-fill health-fill" id="hp-bar" style="width: 100%"></div>
+                        </div>
+                        <span class="stat-value"><span id="player-hp">100</span>/<span id="player-max-hp">100</span></span>
+                    </div>
+
+                    <div class="stat-row">
+                        <span class="stat-label">Sanity:</span>
+                        <div class="stat-bar">
+                            <div class="stat-fill sanity-fill" id="sanity-bar" style="width: 100%"></div>
+                        </div>
+                        <span class="stat-value"><span id="player-sanity">15</span>/<span id="player-max-sanity">15</span></span>
+                    </div>
+
+                    <div class="stat-row">
+                        <span class="stat-label">Experience:</span>
+                        <div class="xp-eldritch-container">
+                            <div class="xp-eldritch-bar" id="xp-eldritch-bar"></div>
+                        </div>
+                        <span class="stat-value xp-numeric"><span id="player-xp">0</span>/<span id="player-xp-next">50</span></span>
+                    </div>
+                    <div class="xp-hint" id="xp-hint">The void is patient</div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-menu">
+                    <button class="action-button" id="attack-btn" onclick="CombatUI.selectAction('attack')">
+                        <span class="btn-icon"></span> ATTACK
+                    </button>
+                    <button class="action-button" id="reload-btn" onclick="CombatUI.selectAction('reload')">
+                        <span class="btn-icon"></span> RELOAD
+                    </button>
+                    <button class="action-button" id="defend-btn" onclick="CombatUI.selectAction('defend')">
+                        <span class="btn-icon"></span> DEFEND
+                    </button>
+                    <button class="action-button" id="inventory-btn" onclick="CombatUI.openInventory()">
+                        <span class="btn-icon"></span> INVENTORY
+                    </button>
+                    <button class="action-button" id="manifest-btn" onclick="CombatUI.selectAction('manifest')">
+                        <span class="btn-icon"></span> MANIFEST
+                    </button>
+                    <button class="action-button" id="help-btn" onclick="CombatUI.showHelp()">
+                        <span class="btn-icon"></span> HELP
+                    </button>
+                </div>
+            </div>
+
+            <!-- Center: Doom Clock -->
+            <div class="doom-clock-panel">
+                <div class="doom-clock">
+                    <div class="doom-clock-title">DOOM CLOCK</div>
+                    <div class="doom-clock-display">
+                        <span class="doom-icon">⏳</span>
+                        <span id="doom-value">100</span><span class="doom-max">/100</span>
+                    </div>
+                    <div class="doom-progress-container">
+                        <div class="doom-progress-bar" id="doom-bar" style="width: 100%"></div>
+                    </div>
+                    <div class="doom-warning" id="doom-warning">The veil grows thinner...</div>
+                </div>
+            </div>
+
+            <!-- Right: Enemy Stats -->
+            <div class="enemy-stats-panel">
+                <div class="enemy-stats-title">ENEMIES</div>
+                <div class="enemy-stats-list" id="enemy-stats-list">
+                    <!-- Enemy stat rows injected dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Manifestation Selection Modal -->
+    <div class="modal" id="manifestation-modal" style="display: none;">
+        <div class="modal-content">
+            <h2>Choose Manifestation</h2>
+            <div id="manifestation-list">
+                <!-- Manifestation buttons injected here -->
+            </div>
+            <button class="btn-cancel" onclick="CombatUI.cancelManifestSelection()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Inventory Modal removed - now uses full inventory page -->
+
+    <!-- Include JavaScript -->
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/audio.js"></script>
+    <script src="/static/js/settings.js"></script>
+    <script src="/static/js/ui.js"></script>
+    <script type="module" src="/static/js/combat/combat-controller.js"></script>
+    
+    <!-- Initialize combat by fetching data via AJAX -->
+    <script type="module">
+        import { CombatController } from '/static/js/combat/combat-controller.js';
+        
+        // Expose to global scope for onclick handlers
+        window.CombatUI = CombatController;
+        
+        // Show loading state
+        const combatLog = document.getElementById('combat-log-content');
+        combatLog.textContent = 'Loading combat...';
+        
+        // Fetch combat data from API
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('/api/combat/state', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'same-origin'
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                // Check if combat is active
+                if (!result.in_combat) {
+                    console.error('No active combat session');
+                    combatLog.textContent = 'No active combat. Redirecting...';
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 1500);
+                    return;
+                }
+                
+                // Initialize combat UI with fetched data
+                const combatData = {
+                    player: result.player,
+                    enemies: result.enemies,
+                    turn: result.turn,
+                    defending: result.defending,
+                    chapter: result.player.level || 1,
+                    doom_clock: result.doom_clock || {
+                        ticks: 100,
+                        start: 100
+                    }
+                };
+                
+                CombatUI.init(combatData);
+                
+            } catch (error) {
+                console.error('Failed to load combat data:', error);
+                combatLog.textContent = 'Failed to load combat. Redirecting...';
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>

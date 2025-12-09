@@ -1,0 +1,576 @@
+{
+  "_comment": "Story data for the Lovecraftian horror RPG - converted from story.py STORY_MAP",
+  "_instructions": "Each node can have: text (array), music (object), wait (bool), combat (object), doom_tick (int), doom_reason (str), choices (array), goto/next (str), end (bool), quit (bool)",
+  
+  "1_intro": {
+    "music": {
+      "action": "play",
+      "track": "Music/ambience/Tension_rise.mp3",
+      "volume": 0.12,
+      "loop": true
+    },
+    "text": [
+      "             Chapter I: Crimson Veil ",
+
+      "Helsinki Airport. Terminal 2.\n\nYou were supposed to land for a layover.\nYou were supposed to grab coffee, stretch your legs, and board the next flight.\nInstead, the plane landed wrong.\nLights flickering. Announcements cutting out mid-word.\nPassengers shuffling in tight, uncomfortable silence\nuntil someone finally said what everyone already felt:\n\n\"We should not be here.\"\n\nNow, the terminal is empty.\nThe counters abandoned.\nThe gates silent.\nEven the hum of air conditioning feels wrong, like it's breathing in time with something distant.\nAnd down the corridor ahead, where no one else seems willing to go\na light burns.\n\nNot fluorescent.\nNot clean.\nA faint, sourceless glow pulsing like a wound in the air itself.\n\nIt pulls.\nAnd you cannot explain why\nbut your feet move toward it."
+    ],
+    "wait": true,
+    "next": "1_dark_hallway"
+  },
+
+  "1_dark_hallway": {
+    "text": [
+      "The corridor narrows as you move deeper.\nThe walls press in, not physically, but in presence\nas though the architecture itself is holding its breath.\nThe light ahead flickers once, twice\nand then settles into a sickly, rhythmic pulse.\n\nYou pass a row of shuttered shops.\nClosed. Silent.\nBut you can see smudges on the glass, handprints pressed against the windows from the inside.\nAs if someone tried to get out.\nAs if they couldn't."
+    ],
+    "wait": true,
+    "next": "1_hallway_decision"
+  },
+
+  "1_hallway_decision": {
+    "text": [
+      "You hesitate.\nEvery instinct screams to turn back.\n\nBut you already know:\nThe terminal behind you feels just as wrong now.\nAnd the light ahead is the only thing that feels like an answer."
+    ],
+    "wait": true,
+    "choices": [
+      {
+        "label": "Turn back",
+        "next": "1_hallway_decision_loop"
+      },
+      {
+        "label": "Continue forward",
+        "next": "1_where_shadows_bled"
+      }
+    ]
+  },
+
+  "1_hallway_decision_loop": {
+    "text": [
+      "You pivot on your heel, forcing yourself to move away from the light.\nBut after three steps, the corridor bends\nand you are facing it again.\n\nThe light pulses.\nYou try a different path. Same result.\nIt's not that you're walking in circles.\nIt's that there is no \"back\" anymore.\n\nOnly forward."
+    ],
+    "wait": true,
+    "next": "1_where_shadows_bled"
+  },
+
+  "1_where_shadows_bled": {
+    "text": [
+      "You step through the doorway, and the air changes.\nColder. Thicker.\nLike walking into the belly of something that died but refused to stop breathing.\n\nBodies.\n\nNot many. Five, maybe six.\nSprawled across the floor in unnatural positions,\ntheir limbs bent at angles that bones don't allow.\nNo blood. No wounds.\nBut their faces\ntheir faces are locked in terror so absolute that it feels contagious just to look at them.\n\nOne of them is still breathing.\nBarely.\n\nHe lies against the far wall, chest rising in shallow, ragged bursts.\nHis eyes flick toward you, wide and glassy,\nand his mouth moves soundlessly, trying to form words that won't come."
+    ],
+    "wait": true,
+    "next": "1_encounter_with_man"
+  },
+
+  "1_encounter_with_man": {
+    "text": [
+      "You kneel beside him.\nUp close, you can see the damage:\nDeep lacerations across his torso, his arms, his face\nnot from a blade, but from something sharper.\nSomething precise.\n\nHe coughs, and blood flecks his lips.\n\n\"You… you shouldn't be here…\"\n\nHis voice is faint, barely more than a whisper, but it carries weight.\nLike every word costs him something irreplaceable.\n\n\"My name is Ezekiel,\" he rasps.\n\"I came to close it… but I was too slow…\"\n\nHe gestures weakly toward the far end of the room,\nwhere the light you followed now burns brightest.\n\nIt's not a light.\n\nIt's a tear.\n\nA wound in reality itself, pulsing with geometry that should not exist.\nAngles that fold inward and outward simultaneously.\nColors that have no name.\nAnd at its center, something vast and patient and utterly wrong watches back.\n\n\"A conduit,\" Ezekiel breathes.\n\"A passage… between what is… and what should never be…\"\n\nHis hand trembles as he reaches toward you.\n\n\"You have to close it.\"\n\"Touch it. Anchor your will against its pull.\"\n\"It will try to break you.\"\n\"But if you succeed…\"\n\nHe coughs again, harder this time.\n\n\"…maybe this place doesn't take everyone.\""
+    ],
+    "wait": true,
+    "next": "1_conduit"
+  },
+
+  "1_conduit": {
+    "text": [
+      "You turn toward the conduit.\n\nIt dominates the room now, not through size but through presence.\nA fracture in the fabric of space,\nits edges rippling like cloth caught in a wind that comes from nowhere.\n\nThe closer you get, the harder it becomes to think.\nYour thoughts scatter like insects fleeing light.\nYour heartbeat slows, then races, then loses rhythm entirely.\n\nAnd beneath it all, a voice.\n\nNo.\nNot a voice.\n\nA knowing.\n\nIt crawls through your skull like something with too many legs,\nwhispering truths you were never meant to understand:\n\nThat the world is thinner than you thought.\nThat the walls between what is and what waits are crumbling.\nThat you are so, so small.\n\nYour hand lifts.\nYou don't remember deciding to move it.\nBut it rises anyway, reaching toward the wound in space."
+    ],
+    "wait": true,
+    "next": "1_first_conduit_decision"
+  },
+
+  "1_first_conduit_decision": {
+    "text": [
+      "Your fingers hover inches from the surface.\nThe air around it hums, vibrating with a frequency that makes your teeth ache.\n\nEzekiel's voice, faint and desperate:\n\"Do it. Close it. Before it's too late.\"\n\nBut something else whispers beneath his words.\nSomething older.\nSomething patient.\n\n\"Touch it, and you will know.\""
+    ],
+    "wait": true,
+    "choices": [
+      {
+        "label": "Touch the conduit",
+        "next": "1_awakening"
+      }
+    ]
+  },
+
+  "1_awakening": {
+    "text": [
+      "Your palm meets the surface.\n\nAnd the world ends.\n\nNot violently. Not dramatically.\nIt simply stops being what it was and becomes something else entirely.\n\nYou are standing in the room.\nYou are falling through infinite darkness.\nYou are watching yourself from a distance that has no measurement.\n\nThe conduit doesn't break.\nIt opens.\n\nAnd through it, you see:\n\nCities folded into themselves like origami made of bone.\nSkies that bleed upward into voids where stars scream in frequencies older than light.\nFigures vast and patient, their forms too complex to hold in a single glance,\nwaiting just beyond the edges of perception.\n\nYou try to pull away.\nYou can't.\n\nThe knowing floods in:\n\nIt's not pain. It's not death. It's the knowing.\nThat it's too much.\nThat you were never meant to carry this.\nThat some things were never meant to be seen.\n\nThen, like a cord snapping inside your chest, it happens.\nSomething flees you.\nNot bravery. Not strength.\nFear.\n\nThe trembling you buried beneath decisions,\nthe dread you swallowed to keep moving, rips loose.\nNot forced but freed, as if your mind could no longer hold the weight of its silence.\nIt does not vanish. It recoils.\n\nThe air folds around the absence like shivering cloth,\nand from it emerges a shape, twitching, angular, impossible to watch directly.\nIt watches everything. It breathes in hesitation. It pulses with retreat.\nIt waits.\n\nNot to defend you, but to outlive what breaks you.\n\n[MANIFESTATION UNLOCKED: **Fear**]\n\nIt does not protect. It does not empower.\nBut it will follow until your shadow forgets the sun.\n\nAnd in this place...\nThat is enough to shape reality."
+    ],
+    "wait": true,
+    "doom_tick": 1,
+    "doom_reason": "Conduit closure ripples time.",
+    "next": "1_shadows_stir"
+  },
+
+  "1_shadows_stir": {
+    "text": [
+      "Ezekiel's head lolls back,\nbut a faint smile clings to his ruined face.\n\n\"Good... you succeeded...\"\n\nHis voice trembles on the edge of nothing.\n\nThe air shifts.\nWhere the conduit's radiance once screamed,\nthe shadows now stretch unnaturally long,\nsliding into cracks and corners where no light should reach.\nFor the first time in hours, maybe days,\ndaylight filters faintly into the hallway.\n\nBut peace does not follow.\n\nA figure bursts from the broken light.\nCloth robes of black and tattered crimson drape across its frame,\netched with curling sigils that writhe like living things.\nChains dangle from its sleeves, rattling in rhythm\nto the low hum of a hymn that never passes its lips.\nThe hood slips back, revealing a face locked in rage — veins bulging, eyes fever-bright,\nmouth twisted as if reciting verses too terrible for sound.\n\nA cultist of the Hymn of the Old Ones.\n\nIt sees you. And it moves."
+    ],
+    "wait": true,
+    "next": "1_ezekiels_warning"
+  },
+
+  "1_ezekiels_warning": {
+    "text": [
+      "Before the zealot can close the distance, Ezekiel rasps,\na sudden force behind his fading voice:\n\n\"You must endure yet another hurdle. But fear not… I will guide you.\"\n\nHis bloodied hand trembles as he points at your chest.\n\n\"The conduit marked you. You carry within you.... manifestations.\"\n\"Powers pulled from knowledge that no mind should touch.\"\n\"I cannot see what gift has taken root first\"\n\"but know this: each manifestation draws on your sanity.\"\n\"Spend too much, and you will lose yourself.\"\n\"Spend wisely, and you will survive.\"\n\nHis words linger, as though pressed into your skull itself."
+    ],
+    "wait": true,
+    "next": "1_combat_scene"
+  },
+
+  "1_combat_scene": {
+    "text": [
+      " Combat Tutorial \n\nEzekiel's voice steadies you: \"This one is weak. Learn quickly.\"\n\"I'll show you how to act in battle: Attack, Defend, Manifest, Inventory, and Reload.\"\n\n\"First, equip a weapon from your inventory.\"\n\"Then try a simple Attack. Choose a target and strike.\"\n\"You can also Defend to halve the next hit, or open Inventory to use a potion.\"\n\"And the power within you — Manifest — spends sanity for stronger effects.\"\n\"Reload is only relevant if you're using a firearm.\""
+    ],
+    "wait": true,
+    "combat": {
+      "enemies": ["Tutorial"],
+      "music": "Music/combat/Behind_you.mp3"
+    },
+    "next": "1_aftermath"
+  },
+
+  "1_aftermath": {
+    "text": [
+      "\"Good. You grasp the rhythm — act, endure, and press on.\"\n\nThe cultist crumples to the ground, robes pooling like spilled ink...\nThe hymn dies in its throat, leaving only the sound of your heartbeat and Ezekiel's wheezing breath.\n\nThe corridor is quiet again,\nbut your hands tremble — from exertion, from power,\nfrom something you can no longer deny is inside you.\n\nEzekiel watches, weak eyes gleaming faintly.\n\"Yes… you see now. You have survived.\"\n\"But survival is only the beginning.\""
+    ],
+    "wait": true,
+    "rewards": {
+      "weapons": ["AR-15", "MP7"],
+      "consumables": [
+        {"name": "rifle ammo", "quantity": 30},
+        {"name": "submachine ammo", "quantity": 50},
+        {"name": "Small Health Potion", "quantity": 2},
+        {"name": "Large Health Potion", "quantity": 3},
+        {"name": "Small Sanity Potion", "quantity": 2}
+      ]
+    },
+    "next": "1_final_words"
+  },
+
+  "1_final_words": {
+    "text": [
+      "His body convulses with another cough, crimson flecking his lips.\nStill, he forces the words out, urgent and deliberate:\n\n\"You must continue my work.\"\n\"The conduits… they are at airports across the world.\"\n\"Only you can close them now....\"\n\nHe presses a crumpled, blood-stained note into your palm.\nScribbled names of airports, written in haste, blur beneath smears of red.\n\nHis grip slackens.\nWith a final ragged breath,\nEzekiel collapses into silence.\n\nThe hallway feels colder without his voice.\nAnd in your hand, the note feels heavier than paper has any right to be."
+    ],
+    "wait": true,
+    "next": "travel_board_intro"
+  },
+
+  "travel_board_intro": {
+    "text": [
+      "You look down at the blood-smeared note in your hands.\nAirport names, hastily scrawled. Some you recognize. Others are foreign.\n\nYou are standing in Helsinki Terminal 2.\nBut Ezekiel's mission spans the globe.\n\nYou steady your breath.\nThe weight of what lies ahead settles onto your shoulders like iron.\n\nBut there is no turning back now.\nThe conduits must be closed.\nAnd you are the only one left who can do it.\n\nYou need to find a way to travel — to reach these distant airports,\nto hunt down the conduits before they spread further.\n\nYou glance around the terminal.\nDeparture boards flicker with destinations.\nTicket counters stand silent.\n\nBut you have Ezekiel's network, his resources.\nAnd most importantly — his mission."
+    ],
+    "wait": true,
+    "travel": true
+  },
+  
+  "2_conduit": {
+    "music": {
+      "action": "play",
+      "track": "Music/ambience/Tension_rise.mp3",
+      "volume": 0.12,
+      "loop": true
+    },
+    "text": [
+      "\n=== Chapter II: Echoes of the Abyss ===\n\n",
+      "The journey leaves you hollow. Another airport.\nAnother silence where life should be.\nBut this time it isn't empty.\n\nFigures linger ahead, robes shifting like shadow and blood.\nTheir chants rise and fall, a hymn that claws at your skin.\n\nMost you recognize, the same cultists who fell in Helsinki.\nBut one stands apart.\nA heavy tome rests in his hands,\nits pages breathing with symbols that squirm like insects across the paper.\n\nWhen he speaks the air itself seems to recoil.\n\n\"I am an Apostle of the Hymn\"\n\nHis eyes narrow, fixing you with disbelief.\n\n\"What business does a stray civilian have here?\"\n\"How did you breach the veil?\"\n"
+    ],
+    "wait": true,
+    "choices": [
+      {
+        "label": "Bluff your way past",
+        "next": "second_conduit.doubt"
+      },
+      {
+        "label": "Attack",
+        "next": "second_conduit.attack"
+      }
+    ]
+  },
+  
+  "second_conduit.doubt": {
+    "text": [
+      "You steady your breath and speak not with certainty,\nbut with something stranger: conviction borrowed from the terror behind your eyes.\n\n\"The Hymn called to me,\" you say.\n\nThe Apostle flinches, almost imperceptibly.\nBehind him, the cultists falter in their chant, their rhythm bending like warped vinyl.\nThe air thickens.\nYou step forward.\n\n\"I dreamed the ink before I saw the page.\n\nI heard the name that hides between syllables.\n\nI walked the corridors that pulse beneath waking thought.\"\n\nThe Apostle watches. Measuring.\nSomewhere behind his gaze, a calculus unfolds — ancient, inhuman, suspicious.\nThen, slowly, he lowers the tome.\n\n\"If that were true… then the Hymn has changed its key.\"\n\nA pause.\n\n\"Perish knave.\""
+    ],
+    "wait": true,
+    "next": "second_conduit.attack"
+  },
+  
+  "second_conduit.attack": {
+    "text": [
+      "You charge forward, your heart pounding in your chest."
+    ],
+    "wait": false,
+    "combat": {
+      "enemies": ["Apostle", "Cultist", "Cultist"],
+      "music": "Music/combat/Behind_you.mp3"
+    },
+    "next": "2_conduit.aftermath"
+  },
+  
+  "2_conduit.aftermath": {
+    "music": {
+      "action": "fadeout",
+      "fade_ms": 1500
+    },
+    "text": [
+      "\nAt last,\nthe chanting dies.\nThe Apostle falls silent,\nhis book closing with a sound like bone breaking.",
+      "\nAmong the scattered robes and shattered symbols,\nyou find something that doesn't belong:\na military-grade rifle, AR-15, still in pristine condition.\nBeside it, a cache of ammunition—30 rounds, 5.56mm NATO.\n\nHow did this get here?\nWhy would cultists carry modern firearms?\n\nQuestions for later.\nYou take what you need."
+    ],
+    "wait": true,
+    "rewards": {
+      "weapons": ["AR-15"],
+      "consumables": [
+        {"name": "rifle ammo", "quantity": 30}
+      ]
+    },
+    "next": "whispering_conduit"
+  },
+  
+  "whispering_conduit": {
+    "music": {
+      "action": "play",
+      "track": "Music/ambience/Tension_rise.mp3",
+      "volume": 0.12,
+      "loop": true
+    },
+    "text": [
+      "=== The Whispering Conduit ===\nYou draw closer to the conduit.\nThe air thickens.\nEach step drags against unseen weight.\nWhispers.\nNot sound, but intrusion.\nA pressure that seeps into the marrow,\ncurling around thought and dream alike.\nThey flood your skull in a tongue not meant for man\nand yet, you *understand*.\n\nA presence. Vast. Ancient.\nIt does not speak *to* you, but *around* you,\nas though idly acknowledging a gnat that landed in its shadow.\n\n\"...a hand that should not reach, reaches.\"\n\"...an eye that should not open, blinks.\"\n\nThe tone is neither threat nor greeting.\nIt is amusement.\n\n\"You scurry, little one.\nYou paw at threads unseen.\nFor that… I will leave you a morsel.\"\n\nA pull gnaws at your chest,\noffering warmth, a whisper of clarity,\nThe promise of an easier path,\nless hunger in the nights to come,\nthe veil of fear thinned for your tiny mind.\nAll you must do…\nis step away.\nLeave the wound unhealed.\nForget you saw it.\n\nThe presence stirs,\nlike a tide withdrawing,\nalready forgetting your shape.\n"
+    ],
+    "wait": true,
+    "choices": [
+      {
+        "label": "Accept the \"gift\" and leave the conduit intact",
+        "next": "whispering_conduit.acceptance"
+      },
+      {
+        "label": "Defy the voice — close the conduit",
+        "next": "whispering_conduit.defiance"
+      }
+    ]
+  },
+  
+  "whispering_conduit.acceptance": {
+    "text": [
+      "=== Acceptance: The Dream of Normalcy ===\nYou stop.\nThe whispers seep deeper, curling like smoke through every corner of thought.\nAnd in that moment, you realize:\nyou don't want this fight.\nYou never wanted it.\nNot blood.\nNot terror.\nNot shadow‑cloaked wars with gods you cannot fathom.\nJust peace.\nJust normalcy.\n\nYou bow your head.\nA wordless assent leaves your lips,\na contract signed in silence.\nSomething tears.\nNot flesh. Not bone.\nSomething within you.\nA sliver of self unspools and drifts away, claimed by the unseen hand.\nDarkness folds around you.\nConsciousness unravels.\nAnd then\n\n\"Wake up already, you're going to be late!\"\n\nYour eyes snap open.\nSunlight filters through cheap blinds.\nThe hum of morning traffic bleeds through the walls.\nYou stumble upright, heart hammering.\nNo cultists.\nNo conduits.\nNo blood.\nJust the familiar clutter of your dorm room.\nIt's 9:15.\nYou're late for class.\n\nYou rush through the motions,\npulling on jeans, slinging your bag over your shoulder.\nSomething nags at you.\nWhy did you jolt awake like that?\nLike a soldier out of a dream of battle.\nLike a hero torn from an action reel.\n\nBut the thought slips away.\nWhatever it was, it doesn't matter now.\nEverything feels… easier.\nThe walk across campus.\nThe chatter of classmates.\nThe words of the professor flowing like water.\n\nWas it always like this?\nOr is something new humming just beneath the surface?\nThe question lingers,\na splinter your mind refuses to touch.\n\nYou laugh softly to yourself.\nWhat a dumb thought.\nThis isn't a game.\nThis isn't a story.\nThis is real life.\nAnd life has never been better.\n\n[ENDING: Blissful Ignorance]"
+    ],
+    "wait": true,
+    "end": true,
+    "quit": true
+  },
+  
+  "whispering_conduit.defiance": {
+    "text": [
+      "=== Defiance ===\nYour hand presses against the conduit.\nThe whispers falter.\nThen sharpen.\nThe amusement rots into something colder,\na ripple of disdain.\n\nAgony rips through your body\nas the structure convulses,\nimploding into itself with a scream\nthat no throat could ever make —\nscreaming silently into absence.\n\nYou fall, trembling, lungs ragged.\nAlive but not unmarked.\n\nFor a moment, you are sure this is the end.\nNot death.\nDefeat.\nThe quiet, smothering certainty that nothing will ever change.\nThat no action matters.\nThat you are too small,\ntoo late,\ntoo alone.\n\nAnd in that moment,\nsomething inside you breaks.\nNot comfort. Not salvation.\n\nHope.\n\nThe fragile light you clung to in the dark,\nthe quiet belief that it could still matter,\nslips from your grasp, not torn, but surrendered,\nas if even your soul had grown too tired to hold it.\n\nit does not vanish.\nit lets go.\n\nit rises not in brilliance,\nbut in stillness.\nPale light, gentle and unearned,\nfolding into shape like a prayer long forgotten.\n\nIt watches you,\nnot with judgment,\nbut with grief.\n\na hollowed reflection of what you once needed to believe.\nnot to survive but to endure.\n\n[MANIFESTATION UNLOCKED: **Hope**]\n\nIt does not bring comfort.\nIt does not restore what was lost.\nBut it will linger until the void swallows you whole.\n\nAnd in this place,\nthat is enough to shape reality.\n\nBefore the presence withdraws,\na thought lingers in the hollow of your mind:\n\n\"You gnawed the hand that brushed you.\nI will remember.\"\n\nAnd then…\nsilence.\n\nThe conduit is gone.\nBut the weight of its notice remains.\nAnd within the vacuum left behind,\nHope flickers.\nNo longer yours.\nNow something else entirely."
+    ],
+    "doom_tick": 1,
+    "doom_reason": "As the conduit closes so does time...",
+    "wait": true,
+    "conduit_closed": true,
+    "travel": true
+  },
+  
+  "3_conduit": {
+    "music": {
+      "action": "play",
+      "track": "Music/ambience/Airport_dread.mp3",
+      "volume": 0.12,
+      "loop": true
+    },
+    "text": [
+      "\n=== Chapter III: Withering Flame ===\n\n",
+      "The plane screeches into the station, brakes screaming like metal in agony.\nYou step onto the platform, suitcase wheels abandoned long ago.\n\nThe airport yawns ahead.\nNot bustling. Not alive.\nA hollow carcass of glass and steel.\n\nDeparture screens flicker with flights that do not exist,\ndestinations that shift too quickly for the eye to follow.\n\nLuggage belts churn with no cargo.\nOnly empty suitcases circle endlessly, their tags smeared with ink that looks like veins.\n\nAnd there at the far end of the hall,\nYet another conduit.\nYet another promise of nothing but ruin.\n\nYou walk, though each step feels heavier than the last."
+    ],
+    "wait": true,
+    "next": "3_first_encounter"
+  },
+  
+  "3_first_encounter": {
+    "text": [
+      "\n=== First Encounter ===\n",
+      "The glow intensifies.\nBut you are not alone this time.\n\nFigures step from the shadows.\nThree, then six, then a dozen.\nRobes of the cult, black and crimson, blades in hand.\n\nAnd at their front — a man draped in heavy vestments, embroidered with spiraling sigils.\nA High Priest.\nHis eyes gleam with fevered ecstasy.\n\n\"So the Order sends another pawn,\"\n\nhis voice echoes, half sermon, half condemnation.\n\n\"You think yourself savior, but you only tighten the chains of this world.\"\n\nHe raises his hands.\nThe cultists chant.\nAnd the air shudders like a drumskin."
+    ],
+    "wait": false,
+    "combat": {
+      "enemies": ["Cultist", "Cultist", "Cultist", "Apostle", "High Priest"],
+      "music": "Music/combat/Invocation.mp3"
+    },
+    "next": "3_first_encounter.aftermath"
+  },
+  
+  "3_first_encounter.aftermath": {
+    "music": {
+      "action": "fadeout",
+      "fade_ms": 1500
+    },
+    "text": [
+      "\nThe chanting ends with a final gurgled breath.\n",
+      "The High Priest collapses,\n",
+      "his vestments darkening with spreading blood.\n",
+      "The air still hums with the weight of their ritual, but for now, it is over.\n"
+    ],
+    "wait": true,
+    "next": "3_conduit_encounter"
+  },
+  
+  "3_conduit_encounter": {
+    "music": {
+      "action": "play",
+      "track": "Music/ambience/Airport_dread.mp3",
+      "volume": 0.12,
+      "loop": true
+    },
+    "text": [
+      "=== The Conduit ===\n",
+      "Bloodied, gasping, you press onward.\nThe cultists lie broken, their hymn silenced\nbut the glow has grown louder than any chorus.\n\nThe conduit looms.\nAngles that do not meet, geometry that sneers at Euclid.\nA wound in the world.\n\nThe whispers begin again.\nNo. Stronger this time.\nThey do not seep.\nThey *hammer*.\n\nA chorus of voices, overlapping, endless.\nLanguage unspoken, yet every word burns meaning into your skull.\n\n*We see you.*\n*We know you.*\n*Little flame crawling where fire does not belong.*\n\nYour head throbs.\nYour vision fractures.\n\nAnd then, like a serpent coiling close, one voice cuts through the cacophony.\nSilken, amused.\n\n*You bleed. You break. For what?*\n*Close this gate, and another will open. And another. And another.*\n*What you destroy today, we will birth tomorrow.*\n\n*Take ease, child. You may rest. You may live. We will grant you dreams unspoiled by terror.*\n"
+    ],
+    "wait": false,
+    "choices": [
+      {
+        "label": "Accept the deal",
+        "next": "3_conduit_encounter.accept"
+      },
+      {
+        "label": "Defy the voice and close the conduit",
+        "next": "3_conduit_encounter.defy"
+      }
+    ]
+  },
+  
+  "3_conduit_encounter.accept": {
+    "text": [
+      "=== Acceptance: The Dream of Triumph ===\n",
+      "Your hand falls away from the conduit.\nThe whispers curl closer, warm and cold at once.\nA voice like velvet, like oil, like nothing human at all slides beneath your ribs.\n\n*So small, yet so stubborn. But even ants may dream.*\n\nAnd then the airport melts.\nGlass and tile dissolve into gold and light.\n\nYou are standing on a stage.\nThousands of faces blur together, shouting your name.\nFlashbulbs explode like stars.\n\nYou are brilliant.\nFamous.\nPowerful.\nWhatever you ever wanted to be, you are.\nAwards, lovers, riches, influence\neach one is placed in your hands like an offering.\n\nDays become weeks.\nWeeks become years.\n\nYour image glows from billboards.\nYou sign books you don't remember writing.\nYou accept accolades for deeds you don't recall performing.\nEveryone smiles when they see you.\nEveryone knows your name.\n\nAnd yet…\n\nEvery cheer sounds the same.\nEvery face, in every crowd, has the same fixed smile.\nEvery night the champagne tastes like dust.\nEvery morning the mirror shows someone a little less real than the day before.\n\nSometimes, in the space between dreams,\nyou remember something.\nAirports.\nWhispers.\nBlood.\nA man dying, reaching for you.\n\nBut the memory dissolves before you can hold it.\nA voice you cannot name purrs against your skull:\n\n*Sleep. Shine. Smile.*\n*It is all we ask.*\n\nYou nod without realizing.\nAnd the dream swallows you whole.\n\n[ENDING: False Glory]"
+    ],
+    "wait": true,
+    "end": true,
+    "quit": true
+  },
+  
+  "3_conduit_encounter.defy": {
+    "text": [
+      "=== Defiance: The Anatomist ===\n",
+      "You scream into the conduit's light.\nYour hand strikes its surface.\nAgony rips through you\nnot like fire, but like pages torn from a book.\n\nYou collapse, choking on the taste of iron.\nThe world swims red at the edges.\nAnd in the hollow between your heartbeat,\nyou feel it happen.\n\nSomething leaves you.\nNot justice.\nNot truth.\n\nResentment.\n\nThe festering kernel of every slight,\nevery wound endured,\nevery injustice that lodged itself inside you\nand never found release.\n\nIt does not vanish.\nIt remembers.\n\nSloughing away from your psyche like rotted skin,\nbut hardening, coiling,\ntaking form in the world.\n\nIt glares at you with your own bitterness.\nIt breathes with your own hate.\nAnd it smiles with the knowledge\nthat to hurt others is to heal itself.\n\n[MANIFESTATION UNLOCKED: Resentment]\n\nIt will not console you.\nIt will not make you whole.\nBut it will cling until nothing remains but hunger.\n\nAnd in this place,\nthat is enough to shape reality.\n\nThe conduit collapses, its geometry snapping inward with a final shriek.\nBut silence does not follow.\n\nFrom the ruin, a scraping sound.\nMetal against tile.\nSlow. Heavy.\nDeliberate.\n\nA shadow emerges.\nTall.\nToo tall.\n\nTattered surgical cloth hangs from its frame,\nsplashed with stains long since dried black.\nIts face is hidden behind cracked glass and twisted steel,\na surgeon's mask fused into flesh.\nIn one hand, it drags a scalpel as long as your arm,\nits edge chipped, pitted, yet impossibly sharp.\n\nIts voice is the screech of rust and the hum of bone saws:\n\"The whispers spoke true.\nAt last, a specimen worthy of study.\"\n\nIt raises the scalpel, twitching in anticipation.\n\"You will show me how much can be carved away before the soul expires.\"\n\nIt takes steps closer in increasing tempo.\nThe scalpel sings across the floor.\nAnd you realize\nyou are not facing a foe.\nYou are facing an experiment.\n"
+    ],
+    "doom_tick": 1,
+    "doom_reason": "As the conduit closes so does time...",
+    "wait": true,
+    "conduit_closed": true,
+    "next": "defiance_anatomist.combat"
+  },
+  
+  "defiance_anatomist.combat": {
+    "wait": false,
+    "combat": {
+      "enemies": ["Anatomist"],
+      "music": "Music/combat/Invocation.mp3"
+    },
+    "next": "anatomist.aftermath"
+  },
+  
+  "anatomist.aftermath": {
+    "music": {
+      "action": "play",
+      "track": "Music/ambience/Airport_dread.mp3",
+      "volume": 0.12,
+      "loop": true
+    },
+    "text": [
+      "=== Aftermath ===\n",
+      "The Anatomist crumples, scalpel clanging against the floor,\nits final rattle echoing through the empty concourse.\n\nYou stagger, body broken, mind splintered.\nBut alive.\n\nFor now.\n\nThe silence that follows is not complete.\nIn the edges of your hearing, a thousand murmurs stir\nnot angry.\nNot disappointed.\n*Amused.*\n\nYou know now:\nthe cult is not the true danger.\nThey are tools. Pawns. Distractions.\n\nEach conduit closed draws more attention.\nEach act of defiance makes the abyss lean closer.\n\nAnd the Anatomist was not alone.\nOthers wait.\nOthers watch.\nAnd each one is *for you*.\n\nYou press onward.\nBecause you must.\nBecause there is no other choice.\n"
+    ],
+    "wait": true,
+    "travel": true
+  },
+  
+  "4_conduit": {
+    "music": {
+      "action": "play",
+      "track": "Music/ambience/Chaos_in_terminal.mp3",
+      "volume": 0.12,
+      "loop": true
+    },
+    "text": [
+      "\n=== Chapter IV: The Fractured Sky ===\n\n",
+      "The airport doors part with a hiss,\nbut the air that greets you is not air.\nIt is heavy. Grainy.\nEvery breath scratches down your throat like sandpaper.\n\nThe terminal is not quiet, yet no sound belongs.\nScreens flicker between flights and visions,\ndeparture times woven with sigils that pulse like veins.\nA child's laughter echoes from nowhere,\nthen cuts into a scream that never finishes.\n\nReality is crying out.\nThe veil tears with every heartbeat,\nits seams stretched thin against what presses from the other side.\n\nFor a moment, doubt claws at you.\nEzekiel's words echo, but so do theirs.\nThey called you dust.\nAn insect.\nSomething to be brushed aside by inevitability.\n\nYour hand trembles.\nBut you remember Ezekiel's conviction,\nhis eyes in that last moment,\nand you force steel into your spine.\n\nThis cannot be the wrong path.\n"
+    ],
+    "wait": true,
+    "next": "4_greeting"
+  },
+  
+  "4_greeting": {
+    "text": [
+      "\n=== The Greeting ===\n\n",
+      "The cult is waiting.\nNot hiding.\nWaiting.\n\nTheir robes catch no wind,\nbut sway as if submerged in water.\nEyes gleam from shadowed hoods,\nsome with hatred, some with a flicker of fear.\nThey know you now.\nThey speak your name in hushed whispers, half-curse, half-prayer.\n\nBut the fear dies quickly.\nA new voice threads through the silence,\nnot from their mouths, but from the air itself.\n\nWhispers.\nLow, constant, maddening.\nThe same chorus that stalks your sleep, that gnaws the corners of your waking hours.\n\nAnd then her.\n\nOne among them does not cease her chant when your gaze finds her.\nHer lips move, spilling words not meant for this world,\nbut her eyes hold yours.\nCold. Measured.\nNot rage. Not zeal.\nIntent.\n\nYour skull throbs with pressure.\nYour teeth ache.\nHer voice is not in your ears,\nbut in your marrow.\n\nTo them, you are not an enemy to defeat.\nYou are an obstacle to be erased."
+    ],
+    "wait": false,
+    "combat": {
+      "enemies": ["Cultist", "Cultist", "Apostle", "High Priest"],
+      "music": "Music/combat/your_fear.mp3"
+    },
+    "next": "4_conduit.encounter"
+  },
+  
+  "4_conduit.encounter": {
+    "music": {
+      "action": "play",
+      "track": "Music/ambience/Chaos_in_terminal.mp3",
+      "volume": 0.12,
+      "loop": true
+    },
+    "text": [
+      "\n=== The Conduit ===\n\n",
+      "You stagger forward,\nbreath hitching,\ntoward the glow that stains the far end of the hall.\n\nIt is larger this time.\nHungrier.\nThe geometry buckles,\nwalls and floor warping in its radius,\nas if reality itself recoils from the wound.\n\nThe whispers crescendo.\nNot background.\nNot distant.\nThey are here.\nThey are with you.\n\n*You feel it, don't you?*\n*The futility. The unraveling.*\n*Already the air shreds. Already the skin of this world thins.*\n\nTheir voices coil like serpents through your thoughts.\nNot desperate.\nNot hurried.\nAmused.\n\n*You have entertained us, little flicker.*\n*Defied us, clawed against the tide.*\n*Dust should not burn so brightly.*\n\nA pause, almost tender.\n\n*One last deal, then.*\n*Not for our need,*\n*for our delight.*\n"
+    ],
+    "wait": true,
+    "choices": [
+      {
+        "label": "Accept the \"gift\" and leave the conduit intact",
+        "next": "4_conduit.accept"
+      },
+      {
+        "label": "Defy the voice — close the conduit",
+        "next": "4_conduit.defy"
+      }
+    ]
+  },
+  
+  "4_conduit.accept": {
+    "text": [
+      "\n=== Acceptance: The Crown of Nothing ===\n\n",
+      "You let the whispers in.\nNot just into your mind, into your blood, your very name.\nThe conduit does not collapse this time.\nIt blossoms.\n\nAnd so do you.\n\nYou awaken to thunderous applause.\nNo longer a terminal.\nNo longer dust.\n\nYou sit upon a throne carved from marble that remembers no quarry.\nBanners drape from vaulted ceilings, each one bearing your sigil, your face, your victories, your will.\nBefore you stretch oceans of people, their heads bowed, their chants your name alone.\n\nPower hums in your veins, no longer stolen, no longer borrowed.\nIt is yours.\nNations bend at your command.\nArmies march where you point.\nEven kings, even prophets, kneel at your feet.\n\nYou are not part of the machine.\nYou *are* the machine.\nEvery cog spins for you, every gear grinds to your design.\nThe world's breath is your breath.\nIts heart, your heart.\n\nAnd yet\nwhen the cheers fade,\nwhen the banners ripple in silence,\nyou hear it.\n\nThe hollow echo.\nThe space between each praise,\nthe emptiness beneath every oath of loyalty.\nTheir eyes never meet yours.\nTheir mouths move, but their smiles are painted, stretched too wide.\n\nYou try to speak\nbut your words vanish before leaving your lips,\nabsorbed into the silence like stones into water.\n\nA crown weighs heavy on your head.\nToo heavy.\nCrushing.\n\nAnd in the quiet between breaths, you realize\nyou are not their ruler.\nYou are their entertainment.\nTheir puppet.\n\nA monarch seated on a stage,\nadored by phantoms,\ncaged in a fantasy that is not yours.\n\nStill, you wear the crown.\nYou wave to the masses.\nYou sit upon the throne of Nothing.\n\nAnd you never wake again.\n\n[ENDING: The Crown of Nothing]"
+    ],
+    "wait": true,
+    "end": true,
+    "quit": true
+  },
+  
+  "4_conduit.defy": {
+    "text": [
+      "\n=== Defiance ===\n\n",
+      "Your hand meets the conduit.\nAgony.\nAlways agony.\n\nBut this time, the whispers do not recoil.\nThey converge.\nA chorus not of promises, but of hunger\na tide pressing against the walls of your skull.\n\nYou stagger, doubled over, chest heaving with fire.\nThe world swims red, your veins screaming, your heart pounding too fast,\ntoo loud.\n\nAnd then it happens.\n\nSomething inside you tears free.\nNot righteous.\nNot heroic.\n\n**Rage.**\n\nThe seething ember you buried for so long,\nthe raw defiance that carried you here,\nsplinters away, ripped out as though your soul itself could no longer contain it.\n\nIt does not vanish.\nIt ignites.\n\nHeat coils in the air before you, black smoke bleeding from nothing,\nshaping itself into a figure: towering, sharpened,\na mirror of your fury.\n\nIts eyes burn like coals, its stance unyielding,\nits every breath a snarl at existence itself.\n\n[MANIFESTATION UNLOCKED: **Rage**]\n\nIt does not soothe.\nIt does not forgive.\nBut it will remain until your light burns out.\n\nAnd in this place,\nthat is enough to shape reality.\n\nThe conduit collapses, shrieking,\nits geometry unraveling like a noose pulled tight.\nShadows snap back into the corners,\nbut the air does not lighten.\n\nNo.\nSomething remains.\nSomething answers.\n\nFrom the rippling dark steps a figure\nveiled in funeral wrappings damp with brine,\nrobes dragging wet across the tiles,\nleaving puddles where no water should be.\n\nChains of barnacle-eaten iron hang from its arms,\nclinking like bells rung underwater.\n\nIt does not look at you.\nNot at first.\nIts head tilts back,\nthe veil trembling as it begins to sing.\n\nThe sound is not sound.\nIt is pressure.\nA dirge pressed into the marrow of your bones.\nEach note pulls something from the air\nfrom the deep.\n\nThe tiles crack. The air ripples.\nForms slither through, faceless and half-formed,\nfragments of drowned psyches dragged screaming from the void.\nThey trash without mouths, claw without fingers,\nravenous for flesh, for a host.slow_print\n\nThe Dirge lowers its head now.\nand it looks at you. Through you.\n\nYou realize, too late, it has been singing for you all along."
+    ],
+    "doom_tick": 1,
+    "doom_reason": "As the conduit closes so does time...",
+    "wait": true,
+    "combat": {
+      "enemies": ["Dirge of the Deep"],
+      "music": "Music/combat/Let_the_fragments_work.mp3"
+    },
+    "next": "4_conduit.aftermath"
+  },
+  
+  "4_conduit.aftermath": {
+    "music": [
+      {
+        "action": "fadeout",
+        "fade_ms": 1500
+      },
+      {
+        "action": "play",
+        "track": "Music/ambience/Airport_dread.mp3",
+        "volume": 0.12,
+        "loop": true
+      }
+    ],
+    "text": [
+      "\n=== Aftermath ===\n\n",
+      "The last fragment crumbles into nothing,\nits borrowed flesh unraveling like smoke in water.\nYou stand alone in the corridor\nor so you think.\n\nThe Dirge still lingers.\nShattered, wounded,\nits veil torn open by your strikes.\nBeneath the dripping cloth,\nyou glimpse not a face,\nbut a cavity.\nA hollow where features should be,\nechoing with the resonance of drowned hymns.\n\nIt reaches out, hand trembling,\nnot toward you,\nbut toward the void you cannot see.\nIts song falters\none final note breaking,\ndissolving into a wet cough that shakes the walls.\n\nThe fragments that had clawed at you recoil,\nsucked screaming back into the unseen deep.\nThe Dirge shudders once more,\nthen collapses,\nits body falling apart into slick rags and seawater\nthat seep between the tiles.\n\nSilence.\n\nNot relief.\nNot safety.\nOnly silence\nas if the airport itself holds its breath.\n\nYour chest heaves.\nSanity frays at the edges,\nbut you endure.\n\nAnd yet, as the stillness stretches,\nyou realize something unshakable:\nthe Dirge was not destroyed.\nIt was cut off.\nDragged back to wherever it called from,\nforced into retreat.\n\nIts hymn is not gone.\nIt is only waiting.\n\nYour hand shakes as you steady yourself against the wall.\nThe world wavers,\nlike a picture about to tear through its own canvas.\nThe air reeks of salt.\nAnd for the first time,\nyou feel the conduit's destruction has not weakened the Old Ones' reach—\nbut provoked them.\n\nOne battle won.\nA war deepening.\n\nAnd the path to the next conduit feels heavier than ever before.\n"
+    ],
+    "wait": true,
+    "conduit_closed": true,
+    "travel": true
+  },
+  
+  "5_conduit": {
+    "music": {
+      "action": "play",
+      "track": "Music/ambience/Eclipse_arrival.mp3",
+      "volume": 0.12,
+      "loop": true
+    },
+    "text": [
+      "\n=== Chapter V: The Last Eclipse ===\n\n",
+      "The sky no longer behaves.\n\nIt ripples like a mirage,\nbleeds like an open wound,\nshifts like something waking from a dream.\n\nFrom the plane window you watch reality buckle,\nStars glimmer at noon.\nShadows crawl without bodies.\nYou see shapes moving between seconds,\neach too enormous to belong to your world.\n\nWhen the wheels screech to the tarmac,\nyou know this is no arrival.\nThis is an intrusion.\n\nThe airport is a ruin of flickering light and bending glass.\nReality here no longer fits.\nGirders stretch like wax.\nHallways coil into themselves.\nAnd through every crack in the veil, something vast presses close.\n\nYou step out.\nThe air smells like salt and ash.\nGravity stutters under your feet.\n\nAir shimmers with the passage of forms too colossal to name.\nThey move not above, not below, but through.\nThe veil is no longer holding.\nTime is no longer holding.\n\nThis is not an airport anymore.\nIt is a threshold.\nA mouth.\nAnd you are already inside.\n"
+    ],
+    "wait": true,
+    "choices": [
+      {
+        "label": "Enter the chaos",
+        "next": "5_conduit.chaos"
+      }
+    ]
+  },
+  
+  "5_conduit.chaos": {
+    "text": [
+      "\n=== Chaos in the Terminal ===\n\n",
+      "Cultists scatter through the concourse,\ntheir fervor broken into panic.\n\nSome claw their own faces bloody,\nshrieking at the visions that bloom before them.\n\nOthers kneel, unblinking,\ntheir mouths hanging open to drink what drips through the cracks of reality.\n\nAnd some — the true believers —\nhave begun to change.\n\nSpines twisting like wet rope.\nEyes bloom like ulcers across their skin.\nVeins glowing with constellations not found on any map.\nTeeth sprouting in patterns that no god designed.\n\nThe Starborn rise among the masses —\nthe final reward for their devotion.\nReaching for you with hands that remember being human.\n"
+    ],
+    "wait": true,
+    "combat": {
+      "enemies": ["Starborn", "Starborn", "Cultist"]
+    },
+    "next": "5_conduit.conduit"
+  },
+  
+  "5_conduit.conduit": {
+    "text": [
+      "\n=== The Conduit ===\n\n",
+      "You wade through ruin.\nWhat was once an airport is now a mausoleum of geometry,\nstained by blood and shadow alike.\n\nAt last, the conduit reveals itself.\nIt is no gate now.\nNo wound.\nIt is an eye.\n\nIt opens in the air before you,\na lidless pupil vast and depthless,\ngazing outward from a place where no gaze should reach.\n\nWhen it looks at you,\nevery thought you've ever had shatters like glass.\nYou are stripped to your essence,\nyour struggles laid bare,\nyour soul weighed and mocked.\n\nAnd then the voices.\n\nNot whispers.\nNot temptation.\nResonances older than time,\nvibrations that ripple through the marrow of existence itself.\n\n\"We warned you, ant.\nYou scurry across the board, striking pieces, flipping tables.\nBut the board remains. The game remains. The players remain.\"\n\n\"Close this eye, and another will open.\nYou may wound us. You may even delay us. But our gaze bends the seconds.\nOur thought drags stars in chains.\nWe will outlast all.\"\n\nEach syllable is impossible, yet undeniable.\nit is not speech, it is a force.\nPresence older than stars, pressing against your mind,\na reminder that your defiance is measured against eternity itself.\n"
+    ],
+    "wait": true,
+    "choices": [
+      {
+        "label": "Close the eye",
+        "next": "5_conduit.final_battle"
+      }
+    ]
+  },
+  
+  "5_conduit.final_battle": {
+    "text": [
+      "\n=== Final Battle: The Abomination ===\n\n",
+      "You step closer to the eye and as you touch it,\nyou know, as you did in Helsinki that your touch can change the impossible.\n\nThe eye convulses.\nThe world convulses.\n\nStanding at the threshold Ezekiel once stood at,\ndecades compressed into a single pulse of terror.\n\nSomething tears through.\n\nIt is not seen.\nIt is not describable.\nIt is only felt.\n\nSkin crawls with shapes your mind cannot keep.\nYour bones ache with frequencies that should not exist.\nYour very name sloughs away like wet paper.\n\nAnd yet it stands before you.\nThe Abomination.\n\nA thing reality does not want,\ndoes not understand,\nyet cannot deny.\n\nThe air screams as it takes form.\nYour body screams as you resist.\n"
+    ],
+    "wait": false,
+    "combat": {
+      "enemies": ["Abomination"],
+      "music": "Music/combat/Final_battle.mp3"
+    },
+    "music": {
+      "action": "fadeout",
+      "fade_ms": 1500
+    },
+    "next": "5_conduit.aftermath"
+  },
+  
+  "5_conduit.aftermath": {
+    "music": {
+      "action": "play",
+      "track": "Music/ambience/Epilogue.mp3",
+      "volume": 0.12,
+      "loop": true
+    },
+    "text": [
+      "\n    The Abomination falls.\nIt does not die.\nIt cannot die.\n\nBut you have weakened it.\nAnd the world itself rejects its presence.\nThe abomination writhes, collapsing inward,\nand is sucked screaming back into the fracture.\n\nThe eye shudders.\nCloses.\nAnd is gone.\n\nYou fall to your knees, victorious.\nAnd empty.\n\nNo agony comes this time.\nNo ripping, no tearing.\nOnly silence.\n\nLike a mirror cracking in perfect stillness,\nyour mind fractures.\nNot into pain.\nNot into sorrow.\nBut into nothing.\n\nYour thoughts fade.\nYour name fades.\nYour being fades.\n\nWere you ever here?\nDid any of this matter?\nThe world you saved will rise tomorrow\nas if it had never been threatened.\n\nTomorrow the flights will run again.\nPassengers will walk through spotless halls.\nChildren will laugh at glass windows that look out on endless skies.\nAnd no one will remember that the sky once fractured.\nThat the abyss once leaned close.\n\nAnd you, the ant who defied gods, will be gone.\nNot celebrated.\nNot mourned.\nNot even forgotten.\n\nErased.\n"
+    ],
+    "wait": true,
+    "next": "5_conduit.epilogue"
+  },
+  
+  "5_conduit.epilogue": {
+    "text": [
+      "\n=== Epilogue ===\n\n",
+      "The airport hums with its usual rhythm.\nRolling luggage.\nFootsteps on tile.\nVoices blending into a low, unbroken murmur.\n\nOn the departure board, flights click and shuffle.\nNothing strange.\nNothing out of place.\n\nAnd yet—\nthe air feels lighter somehow.\nOr heavier.\nNo one can decide.\n\nA clerk behind the counter pauses,\npen hovering over paper,\nunsure why her chest aches.\n\nA pilot looks out at the clouds,\nsquinting as though trying to remember\nwhat it was he just forgot.\n\nA child clutches their parent's hand,\neyes wide on nothing at all,\nand whispers,\n\"I think I had a dream.\"\n\nThe parent hushes them gently,\nand the crowd flows on.\n\nNo announcement is made.\nNo moment is marked.\n\nJust a silence,\nthin as paper,\nthreaded through the day.\n\nAnd then life continues,\nas it always has.\nAs it always will.\n"
+    ],
+    "wait": true,
+    "next": "5_conduit.ending"
+  },
+  
+  "5_conduit.ending": {
+    "text": [
+      "    \n[The abyss murmurs] \n\nWritten & Designed by:\n\nPetteri\n\nJack\n\nDerej\n\nPathirage\n\n[The void turns its gaze]\n\nSpecial thanks to you, the player,\nthe final witness,\nthe one who dared the conduit's light.\n\nYour steps are erased,\nyour name forgotten,\nbut the echo of your defiance\nlingers in the dark.\n\nTHE END\n"
+    ],
+    "wait": true,
+    "conduit_closed": true,
+    "end": true,
+    "quit": true
+  }
+}

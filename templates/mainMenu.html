@@ -1,0 +1,210 @@
+<div class="main-menu-wrapper">
+    <div class="hall">
+        <div class="window left"></div>
+        <div class="window right"></div>
+        <div class="tentacle left"></div>
+        <div class="tentacle right"></div>
+    </div>
+
+    <div class="menu-container">
+        <div class="header">Main Menu</div>
+
+        <div class="logo" id="logo">
+██▀███   ██▓▄▄▄█████▓▓█████   ██████     ▒█████    █████▒   ▄▄▄█████▓ ██▀███   ▄▄▄       ███▄    █   ██████  ██▓▄▄▄█████▓
+▓██ ▒ ██▒▓██▒▓  ██▒ ▓▒▓█   ▀ ▒██    ▒    ▒██▒  ██▒▓██   ▒    ▓  ██▒ ▓▒▓██ ▒ ██▒▒████▄     ██ ▀█   █ ▒██    ▒ ▓██▒▓  ██▒ ▓▒
+▓██ ░▄█ ▒▒██▒▒ ▓██░ ▒░▒███   ░ ▓██▄      ▒██░  ██▒▒████ ░    ▒ ▓██░ ▒░▓██ ░▄█ ▒▒██  ▀█▄  ▓██  ▀█ ██▒░ ▓██▄   ▒██▒▒ ▓██░ ▒░
+▒██▀▀█▄  ░██░░ ▓██▓ ░ ▒▓█  ▄   ▒   ██▒   ▒██   ██░░▓█▒  ░    ░ ▓██▓ ░ ▒██▀▀█▄  ░██▄▄▄▄██ ▓██▒  ▐▌██▒  ▒   ██▒░██░░ ▓██▓ ░
+░██▓ ▒██▒░██░  ▒██▒ ░ ░▒████▒▒██████▒▒   ░ ████▓▒░░▒█░         ▒██▒ ░ ░██▓ ▒██▒ ▓█   ▓██▒▒██░   ▓██░▒██████▒▒░██░  ▒██▒ ░
+░ ▒▓ ░▒▓░░▓    ▒ ░░   ░░ ▒░ ░▒ ▒▓▒ ▒ ░   ░ ▒░▒░▒░  ▒ ░         ▒ ░░   ░ ▒▓ ░▒▓░ ▒▒   ▓▒█░░ ▒░   ▒ ▒ ▒ ▒▓▒ ▒ ░░▓    ▒ ░░
+  ░▒ ░ ▒░ ▒ ░    ░     ░ ░  ░░ ░▒  ░ ░     ░ ▒ ▒░  ░             ░      ░▒ ░ ▒░  ▒   ▒▒ ░░ ░░   ░ ▒░░ ░▒  ░ ░ ▒ ░    ░
+  ░░   ░  ▒ ░  ░         ░   ░  ░  ░     ░ ░ ░ ▒   ░ ░         ░        ░░   ░   ░   ▒      ░   ░ ░ ░  ░  ░   ▒ ░  ░
+   ░      ░              ░  ░      ░         ░ ░                         ░           ░  ░         ░       ░   ░
+        </div>
+
+        <div class="game-title" id="title">Rites<br>of<br>Transit</div>
+
+        <button class="menu-btn" id="btn-start" style="opacity: 1 !important; transform: none !important;">Descend into the Unknown</button>
+        <button class="menu-btn" id="btn-help" style="opacity: 1 !important; transform: none !important;">Whispers of Guidance</button>
+
+        <button class="close-btn" id="closeBtn" style="display:none;">Close</button>
+    </div>
+</div>
+
+<style>
+.main-menu-wrapper {
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Courier New', Courier, monospace;
+    background: transparent;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.hall {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url("/static/images/backgrounds/mainMenuBg.png") center/cover;
+    background-color: #0b0b0b;
+}
+
+.window {
+    position: absolute;
+    width: 80px;
+    height: 200px;
+    top: 30%;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    background: radial-gradient(circle at center, rgba(102,255,204,0.4), transparent 70%);
+    animation: windowGlow 3s infinite alternate;
+}
+.window.left { left: 5%; }
+.window.right { right: 5%; }
+
+@keyframes windowGlow {
+    0%, 100% { opacity: 0.2; transform: scaleY(1); }
+    50% { opacity: 0.5; transform: scaleY(1.05); }
+}
+
+.tentacle {
+    position: absolute;
+    width: 300px;
+    height: 400px;
+    background: radial-gradient(circle at 30% 30%, rgba(0,255,204,0.05), transparent 70%);
+    border-radius: 50% 50% 0 50%;
+    bottom: -100px;
+    animation: tentacleMove 8s infinite alternate ease-in-out;
+}
+.tentacle.left { left: -100px; transform: rotate(-20deg); }
+.tentacle.right { right: -100px; transform: rotate(20deg); }
+
+@keyframes tentacleMove {
+    0%, 100% { transform: translateY(0) rotate(-20deg); }
+    50% { transform: translateY(-20px) rotate(-25deg); }
+}
+
+.menu-container {
+    position: relative;
+    text-align: center;
+    background: rgba(20,20,20,0.85);
+    padding: 40px 60px 80px 60px;
+    border-radius: 10px;
+    width: max-content;
+    border: 2px solid #333;
+    box-shadow: 0 0 40px #000;
+    z-index: 2;
+}
+
+.header {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    font-size: 14px;
+    color: #aaa;
+}
+
+.logo {
+    font-size: 12px;
+    color: #66ffcc;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    white-space: pre;
+    opacity: 0;
+    text-shadow: 0 0 5px #66ffcc;
+    animation: flicker 1s infinite alternate;
+    font-family: monospace;
+}
+
+@keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 0.9; }
+    20%, 22%, 24%, 55% { opacity: 0.4; }
+}
+
+.game-title {
+    font-size: 18px;
+    color: #ff66cc;
+    margin-bottom: 40px;
+    line-height: 1.2;
+    opacity: 0;
+    transform: translateY(20px);
+    font-family: 'Press Start 2P', cursive;
+    text-shadow: 0 0 10px #ff66cc;
+}
+
+.menu-btn {
+    display: block;
+    width: 240px;
+    padding: 12px 10px;
+    margin: 12px auto;
+    font-size: 12px;
+    font-family: 'Press Start 2P', cursive;
+    letter-spacing: 1px;
+    border: 2px solid #66ffcc;
+    background: #111;
+    color: #66ffcc;
+    cursor: pointer;
+    text-align: center;
+    text-shadow: 0 0 5px #66ffcc;
+    transition: 0.3s;
+}
+
+.menu-btn:hover {
+    background: #66ffcc;
+    color: #000;
+    box-shadow: 0 0 15px #66ffcc;
+}
+
+.close-btn {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    padding: 10px 20px;
+    background: #333;
+    border: 1px solid #888;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'Press Start 2P', cursive;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 0.3s;
+}
+
+.fadeInUp {
+    animation: fadeUp 0.8s forwards !important;
+}
+
+@keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+<script>
+// Attach event listeners to buttons
+const startBtn = document.getElementById('btn-start');
+const helpBtn = document.getElementById('btn-help');
+
+if (startBtn) {
+    startBtn.addEventListener('click', (e) => {
+        console.log('Start clicked');
+        if (window.menuCallbacks && window.menuCallbacks.onStart) {
+            window.menuCallbacks.onStart();
+        }
+    });
+}
+
+if (helpBtn) {
+    helpBtn.addEventListener('click', (e) => {
+        console.log('Help clicked');
+        if (window.menuCallbacks && window.menuCallbacks.onHelp) {
+            window.menuCallbacks.onHelp();
+        }
+    });
+}
+</script>
