@@ -31,6 +31,45 @@ def init_travel_state():
     return RunState.from_dict(session['run_state'])
 
 
+def process_conduit_closure_if_needed(session):
+    """
+    Handle conduit closure logic if pending.
+    
+    This is called from story/combat endpoints when a node has conduit_closed=True.
+    Centralizes the logic to avoid duplication across multiple endpoints.
+    
+    Args:
+        session: Flask session object
+        
+    Returns:
+        bool: True if conduit was closed successfully, False otherwise
+    """
+    run_state = init_travel_state()
+    pending_airport_index = session.get('pending_conduit_closure')
+    
+    # Fallback: if pending index missing, try current location conduit
+    if pending_airport_index is None:
+        for idx, airport in enumerate(run_state.airports):
+            if airport.conduit and airport.iata == run_state.current_iata and not airport.conduit_closed:
+                pending_airport_index = idx
+                break
+    
+    if pending_airport_index is not None:
+        result = close_conduit_service(run_state, int(pending_airport_index))
+        
+        if result['success']:
+            session['run_state'] = run_state.to_dict()
+            game_state = session.get('game_state', {})
+            game_state['conduits_closed'] = run_state.conduits_closed
+            session['game_state'] = game_state
+            
+            # Clear pending closure
+            session.pop('pending_conduit_closure', None)
+            return True
+    
+    return False
+
+
 @travel_bp.route('/destinations', methods=['GET'])
 def get_destinations():
     """

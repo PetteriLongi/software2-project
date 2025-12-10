@@ -427,14 +427,37 @@ const StoryScreen = {
      * Handle game over
      */
     handleGameOver(data) {
-        // Add game over choices
-        const gameOverChoices = [
-            { text: 'Return to Main Menu' },
-            { text: 'Try Again' }
-        ];
+        // Hide continue indicator
+        this.elements.continueIndicator.style.display = 'none';
 
+        // Add game over choices (these are UI-only, not API choices)
         setTimeout(() => {
-            this.displayChoices(gameOverChoices);
+            this.elements.choices.innerHTML = '';
+
+            // Return to Main Menu button
+            const menuButton = document.createElement('button');
+            menuButton.className = 'story-choice';
+            menuButton.textContent = 'Return to Main Menu';
+            menuButton.addEventListener('click', () => {
+                window.location.href = '/';
+            });
+            this.elements.choices.appendChild(menuButton);
+
+            // Try Again button
+            const retryButton = document.createElement('button');
+            retryButton.className = 'story-choice';
+            retryButton.textContent = 'Try Again';
+            retryButton.addEventListener('click', async () => {
+                // Restart the game
+                try {
+                    await API.game.start();
+                    window.location.reload();
+                } catch (error) {
+                    console.error('Failed to restart game:', error);
+                    this.showError('Failed to restart. Please refresh the page.');
+                }
+            });
+            this.elements.choices.appendChild(retryButton);
         }, 2000);
     },
 

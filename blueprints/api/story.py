@@ -9,6 +9,44 @@ from game_logic.story_engine import process_story_node, get_node, get_starting_n
 story_bp = Blueprint('story', __name__)
 
 
+def parse_manifestation_unlocks(text_lines, player):
+    """
+    Parse story text for manifestation unlock markers and add them to player.
+    
+    Looks for pattern: [MANIFESTATION UNLOCKED: Name] or [MANIFESTATION UNLOCKED: **Name**]
+    
+    Args:
+        text_lines: list of str or str - Story text to parse
+        player: Player instance to add manifestations to
+        
+    Returns:
+        list: Names of manifestations that were unlocked (for logging/display)
+    """
+    import re
+    from game_logic.manifestations import manifestation_library
+    
+    # Convert to single string if needed
+    if isinstance(text_lines, list):
+        text = ' '.join(text_lines)
+    else:
+        text = text_lines
+    
+    # Pattern: [MANIFESTATION UNLOCKED: **Name**] or [MANIFESTATION UNLOCKED: Name]
+    matches = re.findall(r'\[MANIFESTATION UNLOCKED:[\s*]+([A-Za-z]+)[\s*\]]+', text)
+    
+    unlocked = []
+    for match in matches:
+        manif_name = match.strip('* ')
+        if manif_name in manifestation_library:
+            manifestation = manifestation_library[manif_name]
+            # Check if player already has this manifestation
+            if not any(m.name == manifestation.name for m in player.manifestations):
+                player.manifestations.append(manifestation)
+                unlocked.append(manif_name)
+    
+    return unlocked
+
+
 @story_bp.route('/current', methods=['GET'])
 def get_current_story():
     """
@@ -89,8 +127,8 @@ def make_story_choice():
         
         current_node = game_state.get('current_node', '1_intro')
         
-        # Process the story choice
-        story_result = process_story_node(current_node, choice_index=choice_index)
+        # Process the story choice and get next node data in single call
+        story_result = process_story_node(current_node, choice_index=choice_index, include_next=True)
         
         if not story_result['success']:
             return jsonify(story_result), 400
@@ -98,36 +136,22 @@ def make_story_choice():
         # Update to next node if available
         next_node = story_result.get('next_node')
         if next_node:
-            # Process the next node to get its content
-            next_result = process_story_node(next_node)
+            # Use the next_node_data we already processed (avoids double-processing)
+            next_result = story_result.get('next_node_data')
             
-            if next_result['success']:
+            if next_result and next_result['success']:
                 # Update game state
                 game_state['current_node'] = next_node
                 if next_node not in game_state.get('visited_nodes', []):
                     game_state['visited_nodes'].append(next_node)
                 
                 # Check for manifestation unlocks in the text
-                from game_logic.manifestations import manifestation_library
                 from game_logic.player import Player
-                import re
                 
                 player_data = session.get('player')
                 if player_data:
                     player = Player.from_dict(player_data)
-                    
-                    # Parse text for manifestation unlocks
-                    text = ' '.join(next_result.get('text', []))
-                    # Pattern: [MANIFESTATION UNLOCKED: **Name**] or [MANIFESTATION UNLOCKED: Name]
-                    matches = re.findall(r'\[MANIFESTATION UNLOCKED:[\s*]+([A-Za-z]+)[\s*\]]+', text)
-                    
-                    for match in matches:
-                        manif_name = match.strip('* ')
-                        if manif_name in manifestation_library:
-                            manifestation = manifestation_library[manif_name]
-                            if not any(m.name == manifestation.name for m in player.manifestations):
-                                player.manifestations.append(manifestation)
-                    
+                    parse_manifestation_unlocks(next_result.get('text', []), player)
                     session['player'] = player.to_dict()
                 
                 # Update doom clock if specified
@@ -139,28 +163,8 @@ def make_story_choice():
                 
                 # Check if this node should actually close the conduit (defiance path)
                 if next_result.get('conduit_closed'):
-                    from blueprints.api.travel import init_travel_state, close_conduit_service
-                    
-                    run_state = init_travel_state()
-                    pending_airport_index = session.get('pending_conduit_closure')
-
-                    # Fallback: if pending index missing, try current location conduit
-                    if pending_airport_index is None:
-                        for idx, airport in enumerate(run_state.airports):
-                            if airport.conduit and airport.iata == run_state.current_iata and not airport.conduit_closed:
-                                pending_airport_index = idx
-                                break
-                    
-                    if pending_airport_index is not None:
-                        # Now actually close the conduit
-                        result = close_conduit_service(run_state, int(pending_airport_index))
-                        
-                        if result['success']:
-                            session['run_state'] = run_state.to_dict()
-                            game_state['conduits_closed'] = run_state.conduits_closed
-                            
-                            # Clear pending closure
-                            session.pop('pending_conduit_closure', None)
+                    from blueprints.api.travel import process_conduit_closure_if_needed
+                    process_conduit_closure_if_needed(session)
                 
                 session['game_state'] = game_state
                 session['doom_clock'] = doom_clock
@@ -217,8 +221,8 @@ def continue_story():
         
         current_node = game_state.get('current_node', '1_intro')
         
-        # Process current node to get next
-        story_result = process_story_node(current_node)
+        # Process current node to get next, and prefetch next node data in single call
+        story_result = process_story_node(current_node, include_next=True)
         
         if not story_result['success']:
             return jsonify(story_result), 400
@@ -230,36 +234,22 @@ def continue_story():
                 'error': 'No next node available. This node requires a choice.'
             }), 400
         
-        # Process the next node
-        next_result = process_story_node(next_node)
+        # Use the next_node_data we already processed (avoids double-processing)
+        next_result = story_result.get('next_node_data')
         
-        if next_result['success']:
+        if next_result and next_result['success']:
             # Update game state
             game_state['current_node'] = next_node
             if next_node not in game_state.get('visited_nodes', []):
                 game_state['visited_nodes'].append(next_node)
             
             # Check for manifestation unlocks in the text
-            from game_logic.manifestations import manifestation_library
             from game_logic.player import Player
-            import re
             
             player_data = session.get('player')
             if player_data:
                 player = Player.from_dict(player_data)
-                
-                # Parse text for manifestation unlocks
-                text = ' '.join(next_result.get('text', []))
-                # Pattern: [MANIFESTATION UNLOCKED: **Name**] or [MANIFESTATION UNLOCKED: Name]
-                matches = re.findall(r'\[MANIFESTATION UNLOCKED:[\s*]+([A-Za-z]+)[\s*\]]+', text)
-                
-                for match in matches:
-                    manif_name = match.strip('* ')
-                    if manif_name in manifestation_library:
-                        manifestation = manifestation_library[manif_name]
-                        if not any(m.name == manifestation.name for m in player.manifestations):
-                            player.manifestations.append(manifestation)
-                
+                parse_manifestation_unlocks(next_result.get('text', []), player)
                 session['player'] = player.to_dict()
             
             # Update doom clock if specified
@@ -271,27 +261,8 @@ def continue_story():
 
             # Close conduit if this node marks it as sealed (e.g., defiance path aftermath)
             if next_result.get('conduit_closed'):
-                from blueprints.api.travel import init_travel_state, close_conduit_service
-
-                run_state = init_travel_state()
-                pending_airport_index = session.get('pending_conduit_closure')
-
-                # Fallback: if pending index missing, try current location conduit
-                if pending_airport_index is None:
-                    for idx, airport in enumerate(run_state.airports):
-                        if airport.conduit and airport.iata == run_state.current_iata and not airport.conduit_closed:
-                            pending_airport_index = idx
-                            break
-
-                if pending_airport_index is not None:
-                    result = close_conduit_service(run_state, int(pending_airport_index))
-
-                    if result['success']:
-                        session['run_state'] = run_state.to_dict()
-                        game_state['conduits_closed'] = run_state.conduits_closed
-
-                        # Clear pending closure now that it's applied
-                        session.pop('pending_conduit_closure', None)
+                from blueprints.api.travel import process_conduit_closure_if_needed
+                process_conduit_closure_if_needed(session)
             
             session['game_state'] = game_state
             session['doom_clock'] = doom_clock

@@ -50,6 +50,27 @@ class CombatState:
             'player_max_sanity': player.max_sanity
         }
     
+    @classmethod
+    def from_dict(cls, data):
+        """
+        Reconstruct CombatState from serialized session data.
+        
+        Args:
+            data: dict from session['combat']
+        
+        Returns:
+            CombatState: Reconstructed instance with all state restored
+        """
+        instance = cls.__new__(cls)
+        instance.turn_counter = data['turn_counter']
+        instance.enemies = [Enemy.from_dict(e) for e in data['enemies']]
+        instance.defending = data['defending']
+        instance.combat_active = data['combat_active']
+        instance.victory = False
+        instance.player_log = []
+        instance.enemy_log = []
+        return instance
+    
     def check_combat_end(self, player):
         """
         Check if combat should end (player dead or all enemies dead).

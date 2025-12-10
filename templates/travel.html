@@ -413,6 +413,9 @@
 <body>
     <div class="travel-layout">
         <div class="travel-content">
+        <!-- Help Button -->
+        <button class="help-button" id="btn-help" title="Help">?</button>
+
         <!-- Current Location Display -->
         <div class="current-location">
             <div class="location-info">
@@ -495,11 +498,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
     <script src="{{ url_for('static', filename='js/api.js') }}"></script>
     <script src="{{ url_for('static', filename='js/audio.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ui.js') }}"></script>
     <script src="{{ url_for('static', filename='js/travel.js') }}"></script>
     
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             console.log('Travel page loaded');
+            
+            // Initialize help modal
+            if (typeof UI !== 'undefined' && UI.initializeHelpModal) {
+                UI.initializeHelpModal();
+            }
             
             // Initialize AudioManager and play travel music
             if (window.AudioManager) {

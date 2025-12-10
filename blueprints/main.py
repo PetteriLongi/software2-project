@@ -168,6 +168,12 @@ def inventory():
     return render_template('inventory.html', referrer=referrer)
 
 
+@main_bp.route('/help_modal')
+def help_modal():
+    """Serve the shared help modal fragment for dynamic loading."""
+    return render_template('help_modal.html')
+
+
 @main_bp.route('/story/test')
 def story_test():
     """

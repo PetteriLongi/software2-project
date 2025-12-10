@@ -126,15 +126,8 @@ def process_combat_action():
         # Reconstruct game objects
         player = Player.from_dict(player_data)
         
-        # Reconstruct combat state
-        combat_state = CombatState.__new__(CombatState)
-        combat_state.turn_counter = combat_data['turn_counter']
-        combat_state.enemies = [Enemy.from_dict(e) for e in combat_data['enemies']]
-        combat_state.defending = combat_data['defending']
-        combat_state.combat_active = combat_data['combat_active']
-        combat_state.victory = False
-        combat_state.player_log = []
-        combat_state.enemy_log = []
+        # Reconstruct combat state from session data
+        combat_state = CombatState.from_dict(combat_data)
         
         # Process the action
         result = process_player_action(
@@ -241,26 +234,11 @@ def process_combat_action():
                         
                         # Check if this node should close a conduit
                         if next_story.get('conduit_closed'):
-                            from blueprints.api.travel import init_travel_state, close_conduit_service
+                            from blueprints.api.travel import process_conduit_closure_if_needed, init_travel_state
                             
-                            run_state = init_travel_state()
-                            pending_airport_index = session.get('pending_conduit_closure')
-                            
-                            # Fallback: if pending index missing, try current location conduit
-                            if pending_airport_index is None:
-                                for idx, airport in enumerate(run_state.airports):
-                                    if airport.conduit and airport.iata == run_state.current_iata and not airport.conduit_closed:
-                                        pending_airport_index = idx
-                                        break
-                            
-                            if pending_airport_index is not None:
-                                closure_result = close_conduit_service(run_state, int(pending_airport_index))
-                                
-                                if closure_result['success']:
-                                    session['run_state'] = run_state.to_dict()
-                                    game_state['conduits_closed'] = run_state.conduits_closed
-                                    session.pop('pending_conduit_closure', None)
-                                    response['combat_log'].append(f"\n✨ Conduit sealed! ({run_state.conduits_closed}/5)")
+                            if process_conduit_closure_if_needed(session):
+                                run_state = init_travel_state()
+                                response['combat_log'].append(f"\n✨ Conduit sealed! ({run_state.conduits_closed}/5)")
                         
                         rewards = next_story.get('rewards')
                         

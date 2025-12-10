@@ -184,27 +184,3 @@
     to { opacity: 1; transform: translateY(0); }
 }
 </style>
-
-<script>
-// Attach event listeners to buttons
-const startBtn = document.getElementById('btn-start');
-const helpBtn = document.getElementById('btn-help');
-
-if (startBtn) {
-    startBtn.addEventListener('click', (e) => {
-        console.log('Start clicked');
-        if (window.menuCallbacks && window.menuCallbacks.onStart) {
-            window.menuCallbacks.onStart();
-        }
-    });
-}
-
-if (helpBtn) {
-    helpBtn.addEventListener('click', (e) => {
-        console.log('Help clicked');
-        if (window.menuCallbacks && window.menuCallbacks.onHelp) {
-            window.menuCallbacks.onHelp();
-        }
-    });
-}
-</script>

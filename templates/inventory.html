@@ -387,7 +387,7 @@
         .action_buttons {
             position: absolute;
             top: 20px;
-            right: 20px;
+            right: 80px;
             display: flex;
             gap: 10px;
         }
@@ -468,6 +468,9 @@
 <body>
     <!-- Upper Section: Equipment Display -->
     <div class="upper_section">
+        <!-- Help Button -->
+        <button class="help-button" id="btn-help" title="Help">?</button>
+
         <!-- Player Stats -->
         <div class="player_stats">
             <div class="stat_row">
@@ -553,6 +556,15 @@
 
     <script src="{{ url_for('static', filename='js/api.js') }}"></script>
     <script src="{{ url_for('static', filename='js/audio.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ui.js') }}"></script>
     <script src="{{ url_for('static', filename='js/inventory.js') }}"></script>
+    <script>
+        // Initialize help modal after page loads
+        document.addEventListener('DOMContentLoaded', async function() {
+            if (typeof UI !== 'undefined' && UI.initializeHelpModal) {
+                await UI.initializeHelpModal();
+            }
+        });
+    </script>
 </body>
 </html>

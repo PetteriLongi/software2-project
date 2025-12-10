@@ -56,13 +56,14 @@ def get_node(node_key):
     return story_data.get(node_key)
 
 
-def process_story_node(node_key, choice_index=None):
+def process_story_node(node_key, choice_index=None, include_next=False):
     """
     Process a story node and return structured data for API response.
     
     Args:
         node_key: str - Current node to process
         choice_index: int - If node has choices, which one was selected (0-indexed)
+        include_next: bool - If True, also return processed next_node data (avoids double-processing)
     
     Returns:
         dict: {
@@ -76,6 +77,7 @@ def process_story_node(node_key, choice_index=None):
             'choices': list of dict or None (available choices),
             'wait': bool (whether to wait for user acknowledgment),
             'next_node': str or None (auto-navigation to next node),
+            'next_node_data': dict or None (only if include_next=True; processed next node),
             'is_ending': bool (whether this node ends the story),
             'quit_game': bool (whether game should quit)
         }
@@ -100,6 +102,7 @@ def process_story_node(node_key, choice_index=None):
         'choices': None,
         'wait': node.get('wait', True),
         'next_node': None,
+        'next_node_data': None,
         'is_ending': node.get('end', False),
         'quit_game': node.get('quit', False),
         'travel': node.get('travel', False),  # Added travel flag
@@ -147,6 +150,12 @@ def process_story_node(node_key, choice_index=None):
     else:
         # No choices - check for auto-navigation
         result['next_node'] = node.get('goto') or node.get('next')
+    
+    # Optionally process next node in single call to avoid double-processing
+    if include_next and result['next_node'] and result['success']:
+        next_data = process_story_node(result['next_node'], choice_index=None, include_next=False)
+        if next_data['success']:
+            result['next_node_data'] = next_data
     
     return result
 
