@@ -112,6 +112,7 @@ GameProjectSoftware2/
 │   ├── story.html                  # Story template (injected via AJAX)
 │   ├── combat.html                 # Combat template (injected via AJAX)
 │   ├── travel.html                 # Travel template (injected via AJAX)
+│   ├── help_modal.html             # Shared help modal fragment (loaded dynamically)
 │   └── audio_test.html             # Audio debugging template
 │
 ├── Data/
@@ -205,6 +206,13 @@ Session Storage:
 ---
 
 ## Core Systems
+
+### Shared Help Modal
+
+- Centralized HTML lives in `templates/help_modal.html`
+- Dynamically fetched via the `/help_modal` route
+- Injected and styled by `UI.initializeHelpModal()` in `static/js/ui.js`
+- Available on main menu, inventory, and travel screens via the `?` / "Whispers of Guidance" buttons
 
 ### 1. Story Engine (`game_logic/story_engine.py`)
 
@@ -579,6 +587,7 @@ AUDIO_MAP = {
 - Implement proper database for save persistence
 - Add rate limiting to API endpoints
 - Implement user authentication system
+- Serve the help modal via the `/help_modal` route (already wired) and keep `/` as the primary entry point for the main menu
 
 ### Performance Optimization
 
