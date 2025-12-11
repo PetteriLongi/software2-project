@@ -117,8 +117,6 @@ GameProjectSoftware2/
 │
 ├── Data/
 │   └── flightgame.sql              # Database schema (legacy)
-│
-└── [Documentation files - DOOMCLOCK_*, PHASE2_COMPLETE, etc.]
 ```
 
 ---
